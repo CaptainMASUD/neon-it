@@ -11,6 +11,8 @@
         --primary:#2563eb;
         --secondary:#7c3aed;
         --accent:#06b6d4;
+        --danger:#dc2626;
+        --success:#047857;
         --gradient:linear-gradient(135deg,#2563eb 0%,#7c3aed 55%,#06b6d4 100%);
         --gradient-soft:linear-gradient(135deg,rgba(37,99,235,0.10),rgba(124,58,237,0.12),rgba(6,182,212,0.10));
         --shadow-lg:0 25px 60px rgba(15,23,42,0.12);
@@ -369,9 +371,20 @@
         box-shadow:0 0 0 4px rgba(37,99,235,0.08);
     }
 
+    .form-control.is-invalid{
+        border-color:#fca5a5;
+        background:#fff7f7;
+    }
+
     textarea.form-control{
         min-height:150px;
         resize:vertical;
+    }
+
+    .error-text{
+        font-size:13px;
+        font-weight:700;
+        color:var(--danger);
     }
 
     .side-list{
@@ -582,6 +595,134 @@
         font-weight:600;
     }
 
+    .success-modal{
+        position:fixed;
+        inset:0;
+        z-index:99999;
+        display:none;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        background:rgba(15,23,42,0.55);
+        backdrop-filter:blur(8px);
+    }
+
+    .success-modal.show{
+        display:flex;
+    }
+
+    .success-modal-card{
+        width:100%;
+        max-width:460px;
+        background:#fff;
+        border-radius:30px;
+        padding:34px;
+        text-align:center;
+        position:relative;
+        overflow:hidden;
+        border:1px solid #e7edf6;
+        box-shadow:0 30px 90px rgba(15,23,42,0.30);
+        animation:successPop .35s ease;
+    }
+
+    .success-modal-card:before{
+        content:"";
+        position:absolute;
+        width:210px;
+        height:210px;
+        border-radius:42px;
+        background:var(--gradient-soft);
+        right:-70px;
+        top:-80px;
+        transform:rotate(24deg);
+    }
+
+    .success-modal-card:after{
+        content:"";
+        position:absolute;
+        width:140px;
+        height:140px;
+        border-radius:50%;
+        background:rgba(6,182,212,0.10);
+        left:-50px;
+        bottom:-50px;
+    }
+
+    .success-close{
+        position:absolute;
+        top:18px;
+        right:18px;
+        width:38px;
+        height:38px;
+        border-radius:12px;
+        border:1px solid #e2e8f0;
+        background:#fff;
+        color:#334155;
+        font-size:22px;
+        line-height:1;
+        cursor:pointer;
+        z-index:3;
+        transition:.25s ease;
+    }
+
+    .success-close:hover{
+        background:#f8fafc;
+        transform:translateY(-2px);
+    }
+
+    .success-icon{
+        width:82px;
+        height:82px;
+        margin:0 auto 20px;
+        border-radius:26px;
+        background:linear-gradient(135deg,#10b981,#06b6d4);
+        color:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:40px;
+        font-weight:900;
+        box-shadow:0 18px 36px rgba(16,185,129,0.25);
+        position:relative;
+        z-index:2;
+    }
+
+    .success-modal-card h2{
+        margin:0 0 10px;
+        font-size:30px;
+        color:var(--text);
+        position:relative;
+        z-index:2;
+    }
+
+    .success-modal-card p{
+        margin:0 auto 24px;
+        color:#475569;
+        font-size:15px;
+        line-height:1.8;
+        max-width:340px;
+        position:relative;
+        z-index:2;
+    }
+
+    .success-modal-actions{
+        display:flex;
+        justify-content:center;
+        position:relative;
+        z-index:2;
+    }
+
+    @keyframes successPop{
+        from{
+            opacity:0;
+            transform:translateY(18px) scale(.96);
+        }
+        to{
+            opacity:1;
+            transform:translateY(0) scale(1);
+        }
+    }
+
     @media(max-width:1100px){
         .contact-info-grid{
             grid-template-columns:1fr;
@@ -629,6 +770,15 @@
 
         .btn{
             width:100%;
+        }
+
+        .success-modal-card{
+            padding:30px 22px;
+            border-radius:24px;
+        }
+
+        .success-modal-card h2{
+            font-size:25px;
         }
     }
 </style>
@@ -704,46 +854,101 @@
                         Fill out the form below and tell us about your project, goals, and the type of solution you need.
                     </p>
 
-                    <form action="#" method="POST">
+                    <form action="{{ route('contact.store') }}" method="POST">
                         @csrf
 
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name">
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    class="form-control @error('name') is-invalid @enderror" 
+                                    value="{{ old('name') }}"
+                                    placeholder="Enter your full name"
+                                >
+                                @error('name')
+                                    <div class="error-text">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address">
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-control @error('email') is-invalid @enderror" 
+                                    value="{{ old('email') }}"
+                                    placeholder="Enter your email address"
+                                >
+                                @error('email')
+                                    <div class="error-text">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+                                <input 
+                                    type="text" 
+                                    id="phone" 
+                                    name="phone" 
+                                    class="form-control @error('phone') is-invalid @enderror" 
+                                    value="{{ old('phone') }}"
+                                    placeholder="Enter your phone number"
+                                >
+                                @error('phone')
+                                    <div class="error-text">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="service">Service Needed</label>
-                                <select id="service" name="service" class="form-control">
+                                <select 
+                                    id="service" 
+                                    name="service" 
+                                    class="form-control @error('service') is-invalid @enderror"
+                                >
                                     <option value="">Select a service</option>
-                                    <option>Brand Strategy</option>
-                                    <option>UI/UX Design</option>
-                                    <option>Web Development</option>
-                                    <option>SEO Services</option>
-                                    <option>Performance Marketing</option>
-                                    <option>Custom Solution</option>
+                                    <option value="Brand Strategy" {{ old('service') == 'Brand Strategy' ? 'selected' : '' }}>Brand Strategy</option>
+                                    <option value="UI/UX Design" {{ old('service') == 'UI/UX Design' ? 'selected' : '' }}>UI/UX Design</option>
+                                    <option value="Web Development" {{ old('service') == 'Web Development' ? 'selected' : '' }}>Web Development</option>
+                                    <option value="SEO Services" {{ old('service') == 'SEO Services' ? 'selected' : '' }}>SEO Services</option>
+                                    <option value="Performance Marketing" {{ old('service') == 'Performance Marketing' ? 'selected' : '' }}>Performance Marketing</option>
+                                    <option value="Custom Solution" {{ old('service') == 'Custom Solution' ? 'selected' : '' }}>Custom Solution</option>
                                 </select>
+                                @error('service')
+                                    <div class="error-text">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group full">
                                 <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Write a subject">
+                                <input 
+                                    type="text" 
+                                    id="subject" 
+                                    name="subject" 
+                                    class="form-control @error('subject') is-invalid @enderror" 
+                                    value="{{ old('subject') }}"
+                                    placeholder="Write a subject"
+                                >
+                                @error('subject')
+                                    <div class="error-text">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group full">
                                 <label for="message">Project Details</label>
-                                <textarea id="message" name="message" class="form-control" placeholder="Tell us about your project, goals, timeline, and what you need..."></textarea>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    class="form-control @error('message') is-invalid @enderror" 
+                                    placeholder="Tell us about your project, goals, timeline, and what you need..."
+                                >{{ old('message') }}</textarea>
+                                @error('message')
+                                    <div class="error-text">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -836,4 +1041,50 @@
         </div>
     </footer>
 </div>
+
+@if(session('success'))
+    <div class="success-modal show" id="successModal">
+        <div class="success-modal-card">
+            <button type="button" class="success-close" onclick="closeSuccessModal()">×</button>
+
+            <div class="success-icon">✓</div>
+
+            <h2>Message Sent!</h2>
+
+            <p>
+                {{ session('success') }}
+            </p>
+
+            <div class="success-modal-actions">
+                <button type="button" class="btn btn-primary" onclick="closeSuccessModal()">
+                    Okay, Got It
+                </button>
+            </div>
+        </div>
+    </div>
+@endif
+
+<script>
+    function closeSuccessModal() {
+        const modal = document.getElementById('successModal');
+
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
+    document.addEventListener('click', function(event) {
+        const modal = document.getElementById('successModal');
+
+        if (modal && event.target === modal) {
+            closeSuccessModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeSuccessModal();
+        }
+    });
+</script>
 @endsection

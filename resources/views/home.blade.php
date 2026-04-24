@@ -17,9 +17,6 @@
         --shadow-lg:0 25px 60px rgba(15,23,42,0.12);
         --shadow-md:0 16px 35px rgba(15,23,42,0.08);
         --shadow-sm:0 10px 24px rgba(15,23,42,0.05);
-        --radius-xl:30px;
-        --radius-lg:22px;
-        --radius-md:18px;
     }
 
     body{
@@ -116,6 +113,7 @@
         margin:auto;
         color:#475569;
         font-size:16px;
+        line-height:1.7;
     }
 
     .hero{
@@ -200,6 +198,7 @@
         color:#475569;
         max-width:610px;
         margin-bottom:30px;
+        line-height:1.7;
     }
 
     .hero-actions{
@@ -343,22 +342,6 @@
         color:var(--muted);
     }
 
-    .avatar-row{
-        display:flex;
-        align-items:center;
-        margin-top:12px;
-    }
-
-    .avatar{
-        width:38px;
-        height:38px;
-        border-radius:50%;
-        border:2px solid #fff;
-        margin-right:-8px;
-        object-fit:cover;
-        box-shadow:0 4px 12px rgba(15,23,42,0.12);
-    }
-
     .main-ui-card{
         position:absolute;
         right:0;
@@ -500,6 +483,7 @@
         color:var(--muted);
         font-size:13px;
         margin:0;
+        line-height:1.6;
     }
 
     .chart-bars{
@@ -565,7 +549,11 @@
         to{ transform:translateX(-50%); }
     }
 
-    .services{
+    .services,
+    .process,
+    .portfolio-gallery,
+    .testimonial-section,
+    .pricing-teaser{
         padding:10px 0 86px;
     }
 
@@ -686,6 +674,7 @@
         margin:0;
         font-size:14px;
         color:rgba(255,255,255,0.75);
+        line-height:1.6;
     }
 
     .about-section{
@@ -786,10 +775,6 @@
         line-height:1.6;
     }
 
-    .process{
-        padding:6px 0 84px;
-    }
-
     .process-grid{
         display:grid;
         grid-template-columns:repeat(4,1fr);
@@ -834,17 +819,15 @@
         line-height:1.7;
     }
 
-    .portfolio-gallery{
-        padding:10px 0 84px;
-    }
-
-    .gallery-grid{
+    .gallery-grid,
+    .testimonial-grid{
         display:grid;
         grid-template-columns:repeat(3,1fr);
         gap:22px;
     }
 
-    .gallery-card{
+    .gallery-card,
+    .testimonial-card{
         background:#fff;
         border:1px solid #e8eef7;
         border-radius:24px;
@@ -853,7 +836,8 @@
         transition:0.35s ease;
     }
 
-    .gallery-card:hover{
+    .gallery-card:hover,
+    .testimonial-card:hover{
         transform:translateY(-8px);
     }
 
@@ -921,27 +905,8 @@
         font-weight:700;
     }
 
-    .testimonial-section{
-        padding:8px 0 84px;
-    }
-
-    .testimonial-grid{
-        display:grid;
-        grid-template-columns:repeat(3,1fr);
-        gap:22px;
-    }
-
     .testimonial-card{
-        background:#fff;
-        border:1px solid #e7edf6;
-        border-radius:24px;
         padding:28px;
-        box-shadow:var(--shadow-md);
-        transition:.3s ease;
-    }
-
-    .testimonial-card:hover{
-        transform:translateY(-8px);
     }
 
     .stars{
@@ -982,13 +947,9 @@
         color:var(--muted);
     }
 
-    .pricing-teaser{
-        padding:0 0 84px;
-    }
-
     .pricing-wrap{
         display:grid;
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
         gap:22px;
     }
 
@@ -1000,6 +961,11 @@
         box-shadow:var(--shadow-md);
         position:relative;
         overflow:hidden;
+        transition:.3s ease;
+    }
+
+    .pricing-card:hover{
+        transform:translateY(-8px);
     }
 
     .pricing-card.featured{
@@ -1016,6 +982,7 @@
         background:rgba(37,99,235,0.10);
         color:var(--primary);
         margin-bottom:16px;
+        text-transform:capitalize;
     }
 
     .pricing-card.featured .label{
@@ -1071,6 +1038,28 @@
         background:rgba(255,255,255,0.08);
         border-color:rgba(255,255,255,0.10);
         color:#fff;
+    }
+
+    .empty-packages-box{
+        background:#fff;
+        border:1px solid #e6edf6;
+        border-radius:28px;
+        padding:40px;
+        text-align:center;
+        box-shadow:var(--shadow-md);
+    }
+
+    .empty-packages-box h3{
+        margin:0 0 10px;
+        color:#0f172a;
+        font-size:26px;
+    }
+
+    .empty-packages-box p{
+        margin:0;
+        color:#64748b;
+        font-size:15px;
+        line-height:1.7;
     }
 
     .cta{
@@ -1130,6 +1119,7 @@
         opacity:0.94;
         max-width:560px;
         margin:0;
+        line-height:1.7;
     }
 
     .footer{
@@ -1166,24 +1156,17 @@
 
     @media(max-width:1100px){
         .hero-wrap,
-        .about-wrap,
-        .pricing-wrap{
+        .about-wrap{
             grid-template-columns:1fr;
         }
 
         .gallery-grid,
-        .testimonial-grid{
-            grid-template-columns:1fr 1fr;
-        }
-
+        .testimonial-grid,
         .service-grid{
             grid-template-columns:1fr 1fr;
         }
 
-        .process-grid{
-            grid-template-columns:1fr 1fr;
-        }
-
+        .process-grid,
         .stats-grid{
             grid-template-columns:1fr 1fr;
         }
@@ -1197,29 +1180,9 @@
         }
     }
 
-    @media(max-width:900px){
-        .hero-text h1{
-            font-size:52px;
-        }
-
-        .hero-points{
-            grid-template-columns:1fr;
-        }
-
-        .service-grid,
-        .gallery-grid,
-        .testimonial-grid{
-            grid-template-columns:1fr 1fr;
-        }
-    }
-
     @media(max-width:768px){
         .hero{
             padding:60px 0 50px;
-        }
-
-        .hero-wrap{
-            grid-template-columns:1fr;
         }
 
         .hero-text h1{
@@ -1286,6 +1249,11 @@
         .section-head h2{
             font-size:32px;
         }
+
+        .hero-points,
+        .ui-grid{
+            grid-template-columns:1fr;
+        }
     }
 
     @media(max-width:520px){
@@ -1296,10 +1264,6 @@
 
         .btn{
             width:100%;
-        }
-
-        .ui-grid{
-            grid-template-columns:1fr;
         }
 
         .hero-text h1{
@@ -1329,7 +1293,7 @@
                 </p>
 
                 <div class="hero-actions">
-                    <a href="#contact" class="btn btn-primary">Book Free Consultation</a>
+                    <a href="#packages" class="btn btn-primary">View Packages</a>
                     <a href="#portfolio" class="btn btn-secondary">View Our Work</a>
                 </div>
 
@@ -1410,12 +1374,6 @@
                 <div class="floating-card two">
                     <h5>Core Team</h5>
                     <p>Strategists, designers, developers, and marketers working together on every launch.</p>
-                    <div class="avatar-row">
-                        <img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="team member">
-                        <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="team member">
-                        <img class="avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="team member">
-                        <img class="avatar" src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=100&q=80" alt="team member">
-                    </div>
                 </div>
 
                 <div class="floating-card three">
@@ -1571,7 +1529,7 @@
                     </div>
 
                     <div class="about-copy">
-                        Our agency approach is simple: understand the business, clarify the message, design the experience, build the system, then optimize performance. This creates websites and digital assets that are both visually impressive and commercially effective.
+                        Our agency approach is simple: understand the business, clarify the message, design the experience, build the system, then optimize performance.
                     </div>
 
                     <div class="about-features">
@@ -1589,7 +1547,7 @@
                         </div>
                     </div>
 
-                    <a href="#contact" class="btn btn-dark">Start a Project</a>
+                    <a href="#packages" class="btn btn-dark">Choose a Package</a>
                 </div>
             </div>
         </div>
@@ -1636,7 +1594,7 @@
             <div class="section-head">
                 <span>Case Studies</span>
                 <h2>Selected work for growing brands</h2>
-                <p>These project cards help present the agency as credible and premium by showing real service categories, business outcomes, and polished visuals.</p>
+                <p>These project cards help present the agency as credible and premium by showing service categories, business outcomes, and polished visuals.</p>
             </div>
 
             <div class="gallery-grid">
@@ -1702,9 +1660,7 @@
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>
-                        They completely transformed our website and brand presentation. The new design feels premium, performs better, and helped us get more qualified inquiries within weeks.
-                    </p>
+                    <p>They completely transformed our website and brand presentation. The new design feels premium, performs better, and helped us get more qualified inquiries within weeks.</p>
                     <div class="client-info">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="client">
                         <div>
@@ -1716,9 +1672,7 @@
 
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>
-                        The workflow was clear, fast, and collaborative. From design direction to development, everything felt structured and high quality. We finally have a website that matches our brand.
-                    </p>
+                    <p>The workflow was clear, fast, and collaborative. From design direction to development, everything felt structured and high quality.</p>
                     <div class="client-info">
                         <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="client">
                         <div>
@@ -1730,9 +1684,7 @@
 
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>
-                        Their landing page and campaign work improved conversion performance immediately. The team understands both aesthetics and business outcomes, which is rare.
-                    </p>
+                    <p>Their landing page and campaign work improved conversion performance immediately. The team understands both aesthetics and business outcomes.</p>
                     <div class="client-info">
                         <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="client">
                         <div>
@@ -1745,43 +1697,64 @@
         </div>
     </section>
 
-    <section class="pricing-teaser">
+    <section class="pricing-teaser" id="packages">
         <div class="container">
             <div class="section-head">
                 <span>Packages</span>
-                <h2>Flexible engagement models for different business stages</h2>
-                <p>Use these blocks to position the agency clearly for startups, growing companies, and long-term retainers.</p>
+                <h2>Choose the right package for your business</h2>
+                <p>
+                    Select a package that fits your current stage. Guests will be sent to login first. Logged-in users can request a plan directly.
+                </p>
             </div>
 
-            <div class="pricing-wrap">
-                <div class="pricing-card">
-                    <div class="label">Starter Launch</div>
-                    <h3>For startups and small brands</h3>
-                    <p>A focused package for businesses that need a premium online presence without overcomplicating the launch.</p>
-                    <div class="price">$1,200 <small>/ project</small></div>
-                    <div class="price-list">
-                        <span>Landing page or mini website</span>
-                        <span>Responsive UI design</span>
-                        <span>Basic SEO setup</span>
-                        <span>Launch support</span>
-                    </div>
-                    <a href="#contact" class="btn btn-secondary">Choose Starter</a>
-                </div>
+            @if(isset($packages) && $packages->count())
+                <div class="pricing-wrap">
+                    @foreach($packages as $index => $package)
+                        <div class="pricing-card {{ $index === 1 ? 'featured' : '' }}">
+                            <div class="label">
+                                {{ $package->duration ?? 'Package Plan' }}
+                            </div>
 
-                <div class="pricing-card featured">
-                    <div class="label">Growth Package</div>
-                    <h3>For brands ready to scale</h3>
-                    <p>Complete agency support covering strategy, UI/UX, development, and growth optimization for serious expansion.</p>
-                    <div class="price">$3,500 <small>/ project</small></div>
-                    <div class="price-list">
-                        <span>Multi-page website design & build</span>
-                        <span>Brand direction and content planning</span>
-                        <span>Conversion optimization setup</span>
-                        <span>Analytics and performance support</span>
-                    </div>
-                    <a href="#contact" class="btn btn-secondary">Choose Growth</a>
+                            <h3>{{ $package->name }}</h3>
+
+                            <p>
+                                A professional package designed to help your business grow with better digital presence and expert support.
+                            </p>
+
+                            <div class="price">
+                                ${{ number_format($package->price, 2) }}
+                                <small>/ {{ $package->duration ?? 'plan' }}</small>
+                            </div>
+
+                            <div class="price-list">
+                                @forelse($package->features_array as $feature)
+                                    <span>{{ $feature }}</span>
+                                @empty
+                                    <span>Custom strategy consultation</span>
+                                    <span>Professional support included</span>
+                                @endforelse
+                            </div>
+
+                            @guest
+                                <a href="{{ route('login') }}" class="btn btn-secondary">
+                                    Choose Package
+                                </a>
+                            @endguest
+
+                            @auth
+                                <a href="{{ route('packages.processing', $package->id) }}" class="btn btn-secondary">
+                                    Choose Package
+                                </a>
+                            @endauth
+                        </div>
+                    @endforeach
                 </div>
-            </div>
+            @else
+                <div class="empty-packages-box">
+                    <h3>No packages available right now</h3>
+                    <p>Please check back soon. Our team is preparing new plans for you.</p>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -1795,7 +1768,7 @@
                     </div>
 
                     <div class="cta-actions">
-                        <a href="#" class="btn btn-secondary">Schedule a Call</a>
+                        <a href="#packages" class="btn btn-secondary">Choose a Package</a>
                     </div>
                 </div>
             </div>
@@ -1807,10 +1780,10 @@
             <p>© 2026 AgencyX. Creative digital agency for branding, websites, and growth.</p>
 
             <div class="footer-links">
-                <a href="#">Home</a>
+                <a href="{{ route('home') }}">Home</a>
                 <a href="#portfolio">Portfolio</a>
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
+                <a href="{{ route('services') }}">Services</a>
+                <a href="{{ route('contact') }}">Contact</a>
             </div>
         </div>
     </footer>
